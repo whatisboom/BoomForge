@@ -1,0 +1,24 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+*.swp
+*~
+*.bak
+*.orig
+.vscode/
+.idea/
+
+# Brainstorm visual-companion mockups (local only)
+.superpowers/
+
+# Vendored libraries are fetched at build time via .pkgmeta externals.
+# Ignore the lib folders but keep our own Libs/embeds.xml tracked.
+Libs/*/
+
+# Packager output
+.release/
+
+# Local agent guidance, not for distribution
+CLAUDE.md

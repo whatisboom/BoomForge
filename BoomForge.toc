@@ -1,0 +1,10 @@
+## Interface: 120007
+## Title: BoomForge
+## Notes: Shared plugin framework for whatisboom's WoW addons. Does nothing on its own -- install a plugin addon (e.g. EnchantCheck, DEFunnel, VaultTracker) that requires it.
+## Author: whatisboom
+## Version: @project-version@
+
+embeds.xml
+Core.lua
+Debug.lua
+Registry.lua
