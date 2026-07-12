@@ -19,6 +19,7 @@ Libs/*/
 
 # Packager output
 .release/
+*.zip
 
 # Local agent guidance, not for distribution
 CLAUDE.md

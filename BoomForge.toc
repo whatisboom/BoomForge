@@ -3,6 +3,7 @@
 ## Notes: Shared plugin framework for whatisboom's WoW addons. Does nothing on its own -- install a plugin addon (e.g. EnchantCheck, DEFunnel, VaultTracker) that requires it.
 ## Author: whatisboom
 ## Version: @project-version@
+## X-Curse-Project-ID: 1606882
 
 embeds.xml
 Core.lua
