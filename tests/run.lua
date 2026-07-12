@@ -54,13 +54,17 @@ loadModule("Debug.lua")
 loadModule("Registry.lua")
 
 -- ---- Debug.lua ----
+-- _CreateLogger is internal/unsupported (only Registry.lua calls it) -- these
+-- are white-box tests of the implementation, not an endorsement to call it
+-- directly from a real addon. See RegisterPlugin's tests below for the
+-- actual supported path (entry.services.log).
 do
   local lines = {}
   local realPrint = print
   _G.print = function(s) table.insert(lines, s) end
 
   local level = BoomForge.DEBUG_LEVELS.WARNING
-  local log = BoomForge:CreateLogger("TestPlugin", { getLevel = function() return level end })
+  local log = BoomForge:_CreateLogger("TestPlugin", { getLevel = function() return level end })
 
   log:Warning("warning shown")
   log:Info("info hidden at WARNING level")
@@ -85,8 +89,8 @@ do
 
   _G.print = realPrint
 
-  local log2 = BoomForge:CreateLogger("NoOpts")
-  ok(log2 ~= nil, "CreateLogger works with no opts table (defaults to WARNING level)")
+  local log2 = BoomForge:_CreateLogger("NoOpts")
+  ok(log2 ~= nil, "_CreateLogger works with no opts table (defaults to WARNING level)")
 end
 
 -- ---- Registry.lua ----

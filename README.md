@@ -22,7 +22,7 @@ Several small, independent addons were each vendoring their own copy of the Ace3
   log:Warning("something happened: %s", details)
   ```
   `entry.services` is a growable table of whatever BoomForge provides your plugin — today just `log`, more may be added later (e.g. cross-plugin communication) without changing this call's signature.
-- `BoomForge:CreateLogger(name, opts)` also exists standalone, if you ever need a logger without registering as a plugin.
+- There's no standalone way to get a logger without registering — logging is a benefit of actually committing to the ecosystem as a plugin, not something to pull in on its own.
 
 See `CHANGELOG.md` for what's implemented so far.
 

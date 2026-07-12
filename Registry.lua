@@ -36,7 +36,7 @@ function BoomForge:RegisterPlugin(plugin, opts)
 		name = opts.name,
 		version = opts.version,
 		services = {
-			log = self:CreateLogger(opts.name, { getLevel = opts.getLevel }),
+			log = self:_CreateLogger(opts.name, { getLevel = opts.getLevel }),
 		},
 	}
 	self.plugins[opts.name] = entry
