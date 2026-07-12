@@ -113,6 +113,22 @@ do
 
   local ok1 = BoomForge:RegisterPlugin({}, { name = "Gamma", apiVersion = BoomForge.API_VERSION })
   ok(ok1 ~= nil, "RegisterPlugin succeeds when apiVersion matches")
+
+  -- entry.services is a growable table of what BoomForge provides the
+  -- plugin -- today just services.log, more may be added later without a
+  -- signature change.
+  ok(entry.services ~= nil, "RegisterPlugin's entry has a services table")
+  ok(entry.services.log ~= nil, "RegisterPlugin's entry.services.log is a logger")
+
+  local lines = {}
+  local realPrint = print
+  _G.print = function(s) table.insert(lines, s) end
+  local level = BoomForge.DEBUG_LEVELS.NOTICE
+  local delta = BoomForge:RegisterPlugin({}, { name = "Delta", getLevel = function() return level end })
+  delta.services.log:Notice("hello from Delta")
+  eq(#lines, 1, "RegisterPlugin's getLevel is threaded through to the created logger")
+  ok(lines[1]:find("Delta", 1, true) ~= nil, "logger created via RegisterPlugin is namespaced with the plugin name")
+  _G.print = realPrint
 end
 
 print(("\n%d passed, %d failed"):format(passed, failed))

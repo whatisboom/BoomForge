@@ -11,6 +11,13 @@ BoomForge.plugins = {}
 -- opts.apiVersion (optional) -- if given, must match BoomForge.API_VERSION or
 --   registration errors loudly (both sides are solo-maintained, so a version
 --   skew is a development mistake, not a runtime condition to degrade gracefully).
+-- opts.getLevel (optional) -- passed straight through to CreateLogger.
+--
+-- Returns the registry entry, which carries a `services` table of whatever
+-- BoomForge provides the plugin -- today just `services.log`, but the shape
+-- is deliberately a growable table (not a single return value) so a future
+-- service (e.g. cross-plugin comms) can be added under `services` without
+-- another breaking signature change.
 function BoomForge:RegisterPlugin(plugin, opts)
 	opts = opts or {}
 	assert(type(opts.name) == "string", "BoomForge:RegisterPlugin requires opts.name")
@@ -24,13 +31,17 @@ function BoomForge:RegisterPlugin(plugin, opts)
 		error(("BoomForge: plugin '%s' is already registered"):format(opts.name), 2)
 	end
 
-	self.plugins[opts.name] = {
+	local entry = {
 		plugin = plugin,
 		name = opts.name,
 		version = opts.version,
+		services = {
+			log = self:CreateLogger(opts.name, { getLevel = opts.getLevel }),
+		},
 	}
+	self.plugins[opts.name] = entry
 
-	return self.plugins[opts.name]
+	return entry
 end
 
 function BoomForge:GetPlugin(name)

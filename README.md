@@ -11,15 +11,18 @@ Several small, independent addons were each vendoring their own copy of the Ace3
 ## For plugin authors
 
 - Add `## RequiredDeps: BoomForge` to your addon's `.toc` and drop your own vendored `Libs/`.
-- Register on load:
+- Register on load — this also gets you a namespaced logger instead of rolling your own debug/print helper:
   ```lua
-  BoomForge:RegisterPlugin(self, { name = "YourAddonName", version = "1.0.0" })
-  ```
-- Get a namespaced logger instead of rolling your own debug/print helper:
-  ```lua
-  local log = BoomForge:CreateLogger("YourAddonName", { getLevel = function() return self.db.profile.debugLevel end })
+  local entry = BoomForge:RegisterPlugin(self, {
+      name = "YourAddonName",
+      version = "1.0.0",
+      getLevel = function() return self.db.profile.debugLevel end,
+  })
+  local log = entry.services.log
   log:Warning("something happened: %s", details)
   ```
+  `entry.services` is a growable table of whatever BoomForge provides your plugin — today just `log`, more may be added later (e.g. cross-plugin communication) without changing this call's signature.
+- `BoomForge:CreateLogger(name, opts)` also exists standalone, if you ever need a logger without registering as a plugin.
 
 See `CHANGELOG.md` for what's implemented so far.
 
