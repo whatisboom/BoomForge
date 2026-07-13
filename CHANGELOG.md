@@ -17,5 +17,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - The shared logger is only reachable via `RegisterPlugin` (`entry.services.log`) — there is no standalone public way to get one without registering as a plugin. BoomForge is a base for a committed plugin ecosystem, not a grab-bag of free-standing utilities.
 
-[Unreleased]: https://github.com/whatisboom/BoomForge/compare/v0.2.0-beta...HEAD
-[0.2.0]: https://github.com/whatisboom/BoomForge/releases/tag/v0.2.0-beta
+[Unreleased]: https://github.com/whatisboom/BoomForge/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/whatisboom/BoomForge/releases/tag/v0.2.0
